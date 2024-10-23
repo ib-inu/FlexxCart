@@ -3,3 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@keyframes menuAnimation {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -4,6 +4,7 @@ import ItemCard from "./ItemCard";
 
 const Container = styled.div`
     display: grid;
+    margin-top: 4em;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;  
     gap: 2em;

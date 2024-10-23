@@ -1,16 +1,19 @@
+import { BsArrowRight } from "react-icons/bs"
 import { FaRegUser } from "react-icons/fa"
 import styled from "styled-components"
 
 
 
 const Menu = styled.div`
-    position: absolute;
-    width: 70%;
-    height: 100%;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
+    width: 60%;
+    height: 100%;
+    padding: 1em 0;
     gap: 2em;
+    z-index: 1001;
+    animation: menuAnimation ease .6s;
     ul{
         border-bottom: 1px solid gray;
         li{
@@ -19,6 +22,11 @@ const Menu = styled.div`
             padding: 10px;
             width: 100%;
             cursor: pointer;
+            transition: all 1s ease;
+
+            &:hover{
+                background-color: #dedede;
+            }
         }
         
     }
@@ -32,39 +40,73 @@ const Menu = styled.div`
 
 const Overlay = styled.div`
     width: 100%;
+    position: fixed;
+    -webkit-backdrop-filter:blur(2px);
+    backdrop-filter: blur(2px);
     height: 100%;
-    position: absolute;
+    z-index: -1;
    background-color: #6d6d6d3c;
    
+`
+
+const MenuContainer = styled.div`
+    position: fixed;
+    z-index: 5;
+    width: 100%;
+    top: 5%;
+height: 100%;
 `
 
 
 
 function MenuList(): JSX.Element {
     return (
-        <div>
+        <MenuContainer>
             <Overlay></Overlay>
             <Menu>
                 <ul>
                     <li>
-                        <span>New Arrivals</span> <span>--</span>
+                        <span>New Arrivals</span> <span><BsArrowRight /></span>
                     </li>
                     <li>
-                        <span>New Arrivals</span> <span>--</span>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
                     </li>
-                    <li> <span>New Arrivals</span> <span>--</span> </li>
-                    <li> <span>New Arrivals</span> <span>--</span> </li>
-                    <li> <span>New Arrivals</span> <span>--</span> </li>
-                    <li> <span>New Arrivals</span> <span>--</span> </li>
-                    <li> <span>New Arrivals</span> <span>--</span> </li>
-                    <li> <span>New Arrivals</span> <span>--</span> </li>
+                    <li>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
+                    </li>
+                    <li>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
+                    </li>
+                    <li>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
+                    </li>
+                    <li>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
+                    </li>
+                    <li>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
+                    </li>
+
+                    <li>
+                        <span>New Arrivals</span>
+                        <span><BsArrowRight /></span>
+                    </li>
                 </ul>
                 <p>
                     <FaRegUser />
                 </p>
             </Menu>
-        </div>
+
+        </MenuContainer>
     )
 }
 
 export default MenuList
+
+

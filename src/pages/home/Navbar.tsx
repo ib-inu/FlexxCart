@@ -6,6 +6,11 @@ import styled from "styled-components";
 
 const Nav = styled.nav`
   display: flex;
+  top: 0;
+  position: fixed;
+  z-index: 1005;
+  width: 100%;
+  background-color: #ffffff;
   justify-content: space-between;
   align-items: center;
   padding: 0.3em 2em;
@@ -94,7 +99,7 @@ const Cart = styled.div`
 `
 
 interface NavbarProps {
-    setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -102,19 +107,19 @@ interface NavbarProps {
 
 export default function Navbar({ setIsMenuOpen }: NavbarProps): JSX.Element {
 
-    return (
-        <Nav>
-            <Menu onClick={() => setIsMenuOpen(m => !m)}><BiMenu /></Menu>
-            <h2 style={{ userSelect: "none" }} >FlexxCart</h2>
-            <Ul>
-                <li>
-                    <FaRegUser />
-                </li>
-                <li>
-                    <FaShoppingCart />
-                </li>
-            </Ul>
-            <Cart><FaShoppingCart /></Cart>
-        </Nav>
-    )
+  return (
+    <Nav>
+      <Menu onClick={() => setIsMenuOpen(m => !m)}><BiMenu /></Menu>
+      <h2 style={{ userSelect: "none" }} >FlexxCart</h2>
+      <Ul>
+        <li>
+          <FaRegUser />
+        </li>
+        <li>
+          <FaShoppingCart />
+        </li>
+      </Ul>
+      <Cart><FaShoppingCart /></Cart>
+    </Nav>
+  )
 }
