@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { Product } from "../../api/useRandomProducts";
 import { BiCart } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 interface ItemProps {
     item: Product;
@@ -87,10 +88,15 @@ Button.defaultProps = {
 
 
 export default function ItemCard({ item }: ItemProps): JSX.Element {
-    const { image, title, price } = item;
+    const { id, image, title, price } = item;
 
     const titleTrimmed = title.length > 15 ? title.slice(0, 15) + "..." : title;
 
+    const navigate = useNavigate()
+
+    function getDetails(id: number) {
+        navigate(`details/${id}`)
+    }
 
     return (
         <Card>
@@ -102,7 +108,8 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
             <div>
 
                 <Button><BiCart /></Button>
-                <Button $variant="secondary">Details</Button>
+                <Button $variant="secondary" onClick={() => getDetails(id)
+                }>Details</Button>
             </div>
         </Card>
     );

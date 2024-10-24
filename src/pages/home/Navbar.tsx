@@ -2,6 +2,7 @@ import React from "react";
 import { BiMenu } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled.nav`
@@ -106,6 +107,7 @@ interface NavbarProps {
 
 
 export default function Navbar({ setIsMenuOpen }: NavbarProps): JSX.Element {
+  const navigate = useNavigate();
 
   return (
     <Nav>
@@ -115,11 +117,11 @@ export default function Navbar({ setIsMenuOpen }: NavbarProps): JSX.Element {
         <li>
           <FaRegUser />
         </li>
-        <li>
+        <li onClick={() => navigate('/cart')}>
           <FaShoppingCart />
         </li>
       </Ul>
-      <Cart><FaShoppingCart /></Cart>
+      <Cart onClick={() => navigate('/cart')}><FaShoppingCart /></Cart>
     </Nav>
   )
 }
