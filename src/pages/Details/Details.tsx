@@ -3,7 +3,6 @@ import { useProductDetails } from "../../api/useProductDetails"
 import BackNav from "../../components/BackNav";
 import styled from "styled-components";
 import StarRating from "../../components/StarRating";
-import { useAllCategory } from "../../api/useAllCategory";
 import SimilarCategory from "./SimilarCategory";
 import { useCategory } from "../../api/useCategory";
 

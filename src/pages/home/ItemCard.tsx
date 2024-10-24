@@ -49,7 +49,7 @@ user-select: none;
 
 
 
-const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
+export const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
     padding: 0.5em;
     width: 5em;
     height: 2em;
@@ -94,6 +94,7 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
 
     const navigate = useNavigate()
 
+    //TODO:- REDUX DETAILS SLICE
     function getDetails(id: number) {
         navigate(`details/${id}`)
     }
