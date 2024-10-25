@@ -1,11 +1,9 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Product } from "../../api/useRandomProducts";
 import { BiCart } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/Button";
 
-interface ItemProps {
-    item: Product;
-}
 
 const Card = styled.div`
      display: flex;
@@ -29,11 +27,13 @@ const Card = styled.div`
 
     }
 `
+
 const ImgDiv = styled.div`
 overflow: hidden;
 width: 80%;
 height: 80%;
 transition: all 1s ease;
+
 img{
     object-fit: contain;
 width:100%;
@@ -49,44 +49,9 @@ user-select: none;
 
 
 
-export const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
-    padding: 0.5em;
-    width: 5em;
-    height: 2em;
-    border-radius: 4px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: all .6s ease;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4); 
-    
-    margin: 1em;
-    
-    ${(props) =>
-        props.$variant === "secondary" &&
-        css`
-            background-color: #6c757d;
-            &:hover{
-                background-color: #9ca8b2;
-            }
-        `}
-
-    ${(props) =>
-        props.$variant === "primary" &&
-        css`
-            background-color: #007bff;
-            &:hover{
-                background-color: #5caff4;
-            }
-        `}
-`;
-
-Button.defaultProps = {
-    $variant: "primary",
-};
-
-
-
+interface ItemProps {
+    item: Product;
+}
 export default function ItemCard({ item }: ItemProps): JSX.Element {
     const { id, image, title, price } = item;
 
@@ -96,7 +61,7 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
 
     //TODO:- REDUX DETAILS SLICE
     function getDetails(id: number) {
-        navigate(`details/${id}`)
+        navigate(`/details/${id}`)
     }
 
     return (
@@ -107,10 +72,9 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
             <h2>{titleTrimmed}</h2>
             <p>${price}</p>
             <div>
-
-                <Button><BiCart /></Button>
                 <Button $variant="secondary" onClick={() => getDetails(id)
                 }>Details</Button>
+                <Button><BiCart /></Button>
             </div>
         </Card>
     );

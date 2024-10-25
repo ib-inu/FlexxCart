@@ -1,13 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import styled from "styled-components";
 import { BiArrowBack } from "react-icons/bi";
 
-const StyledNavLink = styled(NavLink)`
+const StyledBackButton = styled.button`
   cursor: pointer;
-  text-decoration: none;
   display: flex;
   align-items: center;
-  transition: all .3s ease;
+  background: none; /* Removes default button background */
+  border: none; /* Removes default button border */
+  transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(0.2em);
@@ -26,19 +27,20 @@ const Nav = styled.div`
 `;
 
 interface BackNavProps {
-    name: string;
+  name: string;
 }
 
 export default function BackNav({ name }: BackNavProps): JSX.Element {
+  const navigate = useNavigate();
 
-    return (
-        <Nav>
-            <StyledNavLink to="/">
-                <BiArrowBack />
-            </StyledNavLink>
-            <h2>{name}</h2>
-            <div></div>
-        </Nav>
-    );
+  return (
+    <Nav>
+      <StyledBackButton onClick={() => navigate(-1)} aria-label="Go back">
+        <BiArrowBack />
+      </StyledBackButton>
+      <h2>{name}</h2>
+      <div></div>
+    </Nav>
+  );
 }
 

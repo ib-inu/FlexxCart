@@ -7,11 +7,11 @@ export interface Product {
     price: number;
     image: string;
     description: string;
-    rating: {
-        rate: number;  // Average rating
-        count: number; // Total number of ratings
-    };
     category: string
+    rating: {
+        rate: number;
+        count: number;
+    };
 }
 
 const fetchRandomProducts = async (): Promise<Product[]> => {

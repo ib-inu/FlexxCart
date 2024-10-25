@@ -109,9 +109,13 @@ interface NavbarProps {
 export default function Navbar({ setIsMenuOpen }: NavbarProps): JSX.Element {
   const navigate = useNavigate();
 
+
+
   return (
     <Nav>
-      <Menu onClick={() => setIsMenuOpen(m => !m)}><BiMenu /></Menu>
+      <Menu onClick={() => setIsMenuOpen(m => !m)}>
+        <BiMenu />
+      </Menu>
       <h2 style={{ userSelect: "none" }} >FlexxCart</h2>
       <Ul>
         <li>

@@ -1,6 +1,7 @@
 import { BsArrowRight } from "react-icons/bs"
 import { FaRegUser } from "react-icons/fa"
 import styled from "styled-components"
+import { useAllCategory } from "../../api/useAllCategory"
 
 
 
@@ -60,43 +61,18 @@ height: 100%;
 
 
 function MenuList(): JSX.Element {
+    const { data, isLoading } = useAllCategory()
+
     return (
         <MenuContainer>
             <Overlay></Overlay>
             <Menu>
                 <ul>
-                    <li>
-                        <span>New Arrivals</span> <span><BsArrowRight /></span>
-                    </li>
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
-
-                    <li>
-                        <span>New Arrivals</span>
-                        <span><BsArrowRight /></span>
-                    </li>
+                    {isLoading ? <li>Loading</li>
+                        :
+                        data.map((i: string) => <li key={i}>
+                            <span>{i}</span> <span><BsArrowRight /></span>
+                        </li>)}
                 </ul>
                 <p>
                     <FaRegUser />

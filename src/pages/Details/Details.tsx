@@ -5,6 +5,8 @@ import styled from "styled-components";
 import StarRating from "../../components/StarRating";
 import SimilarCategory from "./SimilarCategory";
 import { useCategory } from "../../api/useCategory";
+import { Button } from "../../components/Button";
+import { BiCart } from "react-icons/bi";
 
 
 
@@ -39,7 +41,12 @@ const Purchase = styled.div`
     display: flex;
     justify-content: space-between;
 `
-
+const OtherContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1.5em;
+`
 
 
 
@@ -52,7 +59,12 @@ export default function Details(): JSX.Element {
 
 
     const { data, isLoading } = useProductDetails(safeId);
-    const { data: similarProduct, isLoading: similarProductIsLoading } = useCategory(data?.category);
+
+
+    const category: string = data?.category ?? '';
+
+
+    const { data: similarProduct, isLoading: similarProductIsLoading } = useCategory(category);
 
 
 
@@ -62,9 +74,7 @@ export default function Details(): JSX.Element {
                 <>
                     <BackNav name="Details" />
                     <Container>
-
                         <ProductDetails>
-
                             <Image>
                                 <img src={data?.image} alt={data?.title} />
                             </Image>
@@ -77,13 +87,16 @@ export default function Details(): JSX.Element {
                                     <p>
                                         ${data?.price}
                                     </p >
-                                    <button>Buy</button>
+                                    <Button><BiCart /></Button>
 
                                 </Purchase>
 
                             </Info>
                         </ProductDetails>
-                        <SimilarCategory item={similarProduct}></SimilarCategory>
+                        <OtherContainer>
+                            <h2>similar products</h2>
+                            <SimilarCategory item={similarProduct} />
+                        </OtherContainer>
                     </Container>
                 </>
             }
