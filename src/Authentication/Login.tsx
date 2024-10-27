@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import styled from "styled-components"
 import { useDispatch, useSelector } from "react-redux"
@@ -87,11 +87,10 @@ export default function Login() {
                 <input type="password" name="password" onChange={handleChange} value={formData.password} required placeholder="password" />
                 <div>
                     <Button type="reset" $variant="secondary">Clear</Button>
-                    <Button type="submit">{loading ? 'Signing Login...' : 'Login '}</Button>
+                    <Button type="submit">{loading ? 'Login...' : 'Login '}</Button>
                 </div>
             </LoginForm>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            <p>create new account? <Link to="/signup">Signup</Link></p>
         </LoginContainer>
     )
 }

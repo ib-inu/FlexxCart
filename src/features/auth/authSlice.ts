@@ -21,9 +21,6 @@ type User = {
     phone: string;
 };
 
-type SignupData = Omit<User, 'id'> & {
-    password: string;
-};
 
 type AuthState = {
     user: User | null;
@@ -37,23 +34,7 @@ const initialState: AuthState = {
     error: null,
 };
 
-export const signup = createAsyncThunk(
-    'auth/signup',
-    async (userData: SignupData, { rejectWithValue }) => {
-        try {
-            const response = await fetch('https://fakestoreapi.com/users', {
-                method: 'POST',
-                body: JSON.stringify(userData),
-                headers: { 'Content-Type': 'application/json' },
-            });
-            const data = (await response.json()) as User;
-            if (!response.ok) throw new Error('Signup failed');
-            return data;
-        } catch (error: unknown) {
-            return rejectWithValue((error as Error).message);
-        }
-    }
-);
+
 
 export const login = createAsyncThunk(
     'auth/login',
@@ -67,7 +48,6 @@ export const login = createAsyncThunk(
 
             // Log the raw response text
             const responseText = await response.text();
-            console.log('Response Text:', responseText); // Log the raw response
 
             if (!response.ok) {
                 throw new Error(responseText);
@@ -93,18 +73,6 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signup.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(signup.fulfilled, (state, action) => {
-                state.loading = false;
-                state.user = action.payload;
-            })
-            .addCase(signup.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload as string;
-            })
             .addCase(login.pending, (state) => {
                 state.loading = true;
                 state.error = null;

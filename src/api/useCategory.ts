@@ -13,17 +13,27 @@ async function fetchCategory(category: string) {
 
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            const axiosError = error.response?.status;
-
-            if (axiosError === 404) {
-                throw new Error("Product not found (404).");
-            } else if (axiosError === 500) {
-                throw new Error("Server error (500). Please try again later.");
+            // Handle network or response errors
+            if (error.response) {
+                // The server responded with a status code out of the 2xx range
+                const axiosErrorStatus = error.response.status;
+                if (axiosErrorStatus === 404) {
+                    throw new Error("Details not found (404).");
+                } else if (axiosErrorStatus === 500) {
+                    throw new Error("Server error (500). Please try again later.");
+                } else {
+                    throw new Error(`Unexpected error occurred. Status: ${axiosErrorStatus}`);
+                }
+            } else if (error.request) {
+                // No response was received (network error)
+                throw new Error("Network error. Please check your connection.");
             } else {
-                throw new Error(`Unexpected error occurred. Status: ${axiosError}`);
+                // Something happened in setting up the request
+                throw new Error("Request setup failed. Please try again.");
             }
         } else {
-            throw new Error("Failed to fetch Product. Please check your network.");
+            // Generic fallback for non-Axios errors
+            throw new Error("Failed to fetch details. Please check your network.");
         }
     }
 }
@@ -34,11 +44,7 @@ export function useCategory(category: string) {
         () => fetchCategory(category),
         {
             retry: 2,
-            onError: (error: unknown) => {
-                if (error instanceof Error) {
-                    console.error("Error fetching details:", error.message);
-                }
-            }
+
         }
     )
 }

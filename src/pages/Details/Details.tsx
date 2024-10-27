@@ -5,9 +5,69 @@ import styled from "styled-components";
 import StarRating from "../../components/StarRating";
 import SimilarCategory from "./SimilarCategory";
 import { useCategory } from "../../api/useCategory";
-import { Button } from "../../components/Button";
-import { BiCart } from "react-icons/bi";
+import DetailsSkelton from "../../components/ui/DetailsSkelton";
+import AddToCartBtn from "../../components/ui/AddToCartBtn";
 
+
+
+export default function Details(): JSX.Element {
+
+    const { id } = useParams()
+    const safeId = id || '';
+    const { data, isLoading, isError, error } = useProductDetails(safeId);
+
+
+    const category: string = data?.category ?? '';
+
+    const { data: similarProduct, isLoading: similarProductIsLoading } = useCategory(category);
+
+    const productData = {
+        productId: data?.id ?? 0,
+        price: data?.price ?? 0,
+        quantity: 1,
+    };
+
+    return (
+        <>
+            <BackNav name="Details" />
+            {(isLoading && !isError && <DetailsSkelton />)}
+
+            {!isLoading && !isError &&
+                <Container>
+                    <ProductDetails>
+                        <Image>
+                            <img src={data?.image} alt={data?.title} />
+                        </Image>
+                        <Info>
+                            <h2>{data?.title}</h2>
+                            <StarRating count={data?.rating.count} rate={data?.rating.rate} />
+                            <p>{data?.description}</p>
+                            <p></p>
+                            <Purchase>
+                                <p>
+                                    ${data?.price}
+                                </p >
+                                <AddToCartBtn item={productData} />
+
+                            </Purchase>
+
+                        </Info>
+                    </ProductDetails>
+                    <OtherContainer>
+                        <h2>similar products</h2>
+                        {similarProductIsLoading ? <p>loading</p> :
+                            <SimilarCategory item={similarProduct} />
+                        }
+                    </OtherContainer>
+                </Container>}
+
+
+            {!isLoading && isError && <p>
+                {error instanceof Error ? error.message : "Unknown error"}
+            </p>}
+        </>
+    )
+}
 
 
 const Container = styled.div`
@@ -44,62 +104,8 @@ const Purchase = styled.div`
 const OtherContainer = styled.div`
 display: flex;
 flex-direction: column;
-align-items: center;
+/* align-items: center; */
+padding: 2em;
 gap: 1.5em;
 `
 
-
-
-
-
-export default function Details(): JSX.Element {
-
-    const { id } = useParams()
-    const safeId = id || '';
-
-
-    const { data, isLoading } = useProductDetails(safeId);
-
-
-    const category: string = data?.category ?? '';
-
-
-    const { data: similarProduct, isLoading: similarProductIsLoading } = useCategory(category);
-
-
-
-    return (
-        <>
-            {isLoading ? <p>Loading</p> :
-                <>
-                    <BackNav name="Details" />
-                    <Container>
-                        <ProductDetails>
-                            <Image>
-                                <img src={data?.image} alt={data?.title} />
-                            </Image>
-                            <Info>
-                                <h2>{data?.title}</h2>
-                                <StarRating count={data?.rating.count} rate={data?.rating.rate} />
-                                <p>{data?.description}</p>
-                                <p></p>
-                                <Purchase>
-                                    <p>
-                                        ${data?.price}
-                                    </p >
-                                    <Button><BiCart /></Button>
-
-                                </Purchase>
-
-                            </Info>
-                        </ProductDetails>
-                        <OtherContainer>
-                            <h2>similar products</h2>
-                            <SimilarCategory item={similarProduct} />
-                        </OtherContainer>
-                    </Container>
-                </>
-            }
-        </>
-    )
-}

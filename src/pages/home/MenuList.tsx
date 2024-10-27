@@ -1,7 +1,6 @@
 import { BsArrowRight } from "react-icons/bs"
 import { FaRegUser } from "react-icons/fa"
 import styled from "styled-components"
-import { useAllCategory } from "../../api/useAllCategory"
 
 
 
@@ -17,11 +16,13 @@ const Menu = styled.div`
     animation: menuAnimation ease .6s;
     ul{
         border-bottom: 1px solid gray;
+        padding: 1em;
         li{
             display: flex;
             justify-content: space-between;
             padding: 10px;
             width: 100%;
+            align-items: center;
             cursor: pointer;
             transition: all 1s ease;
 
@@ -61,25 +62,31 @@ height: 100%;
 
 
 function MenuList(): JSX.Element {
-    const { data, isLoading } = useAllCategory()
+
+    const categories = [
+        "Electronic", "Jewelery", "Men's Clothing",
+        "Women's Clothing"
+
+    ]
 
     return (
         <MenuContainer>
             <Overlay></Overlay>
             <Menu>
                 <ul>
-                    {isLoading ? <li>Loading</li>
-                        :
-                        data.map((i: string) => <li key={i}>
-                            <span>{i}</span> <span><BsArrowRight /></span>
-                        </li>)}
+                    {categories.map((item, i) => <li key={i} >
+                        {item}
+                        <p ><BsArrowRight /></p>
+                    </li>
+
+                    )}
                 </ul>
                 <p>
                     <FaRegUser />
                 </p>
             </Menu>
 
-        </MenuContainer>
+        </MenuContainer >
     )
 }
 

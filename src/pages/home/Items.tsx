@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useRandomProducts, Product } from "../../api/useRandomProducts";
 import ItemCard from "./ItemCard";
+import HomeSkelton from "../../components/ui/HomeSkelton";
 
 const Container = styled.div`
     display: grid;
@@ -18,14 +19,25 @@ const Container = styled.div`
 `;
 
 export default function Items(): JSX.Element {
-    const { data, isLoading } = useRandomProducts();
+    const { data, isLoading, isError, error } = useRandomProducts();
 
     return (
         <Container>
-            {isLoading ? <p>LOADING</p> :
+            {
+                (isLoading && !isError) &&
+                Array.from({ length: 10 }, (_, index) => <HomeSkelton key={index} />)
+
+            }
+            {
+                !isLoading && !isError &&
                 data && data.map((i: Product) => (
-                    <ItemCard key={i.id} item={i} />  // Make sure to add a unique key for each ItemCard
+                    <ItemCard key={i.id} item={i} />
                 ))
+            }
+
+            {
+                !isLoading && isError &&
+                <p>{error instanceof Error ? error.message : "Unknown error"}</p>
             }
         </Container>
     );

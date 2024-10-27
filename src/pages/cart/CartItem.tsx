@@ -1,6 +1,91 @@
 import styled from "styled-components"
-import { Product } from "../../api/useRandomProducts"
-import { useState } from "react"
+import { useProductDetails } from "../../api/useProductDetails"
+import { ProductItems } from "./Cart"
+import ProductSkelton from "../../components/ui/ProductSkelton"
+import { AppDispatch } from "../../store"
+import { useDispatch } from "react-redux"
+import { addItemPrice, calculateTotalPrice, decQuantity, incQuantity, removeFromCart } from "../../features/cart/cartSlice"
+import { useEffect } from "react"
+import { MdDelete } from "react-icons/md"
+
+
+export default function CartItem({ item }: { item: ProductItems }): JSX.Element {
+
+
+
+    const dispatch = useDispatch<AppDispatch>();
+
+
+    const { data: product, isLoading, isError, error } = useProductDetails(item.productId);
+
+
+    const price = product ? (item?.quantity * product?.price) : 0;
+    useEffect(function () {
+        const productPrice = {
+            id: item.productId,
+            price: product?.price || 0,
+        }
+        dispatch(addItemPrice(productPrice))
+        dispatch(calculateTotalPrice());
+
+    }, [dispatch, item.productId, product?.price])
+
+
+
+    const handleIncrement = () => {
+        dispatch(incQuantity(item.productId))
+        dispatch(calculateTotalPrice());
+
+    }
+    const handleDecrement = () => {
+        dispatch(decQuantity(item.productId))
+        dispatch(calculateTotalPrice());
+    }
+    const handleRemove = (id: number) => {
+        dispatch(removeFromCart(id))
+    }
+
+
+
+
+    return (
+        <>
+            {
+                isLoading && !isError &&
+                <ProductSkelton />}
+            {!isError && !isLoading &&
+                <CartItemDiv >
+                    <ImageDiv>
+                        <img src={product?.image} />
+                    </ImageDiv>
+                    <Details>
+                        <RemoveBtn onClick={() => product?.id && handleRemove(product.id)}>
+                            <MdDelete />
+                        </RemoveBtn>
+                        <h2>{product?.title}</h2>
+                        <Price>
+                            <p>${Math.round(price)}</p>
+                            <Quantity>
+                                <button onClick={handleDecrement
+                                }
+                                >-</button>
+
+                                <span>{item.quantity}</span>
+                                <button onClick={
+                                    handleIncrement
+                                }
+                                >+</button>
+                            </Quantity>
+                        </Price>
+                    </Details>
+                </CartItemDiv>}
+            {!isLoading && isError && <p>
+                {error instanceof Error ? error.message : "Unknown error"}
+            </p>}
+        </>
+    )
+}
+
 
 const CartItemDiv = styled.div`
     display: flex;
@@ -46,6 +131,7 @@ const ImageDiv = styled.div`
 const Details = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100%;
     gap: 2em;
     background-color: #ffffff7a;
@@ -79,29 +165,21 @@ const Quantity = styled.div`
     }
 `
 
-interface CartItemProp {
-    item: Product
-}
+const RemoveBtn = styled.button`
+    padding: 1em;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    padding: 2px;
+    cursor: pointer;
+    top: 0;
+    display: inline-block;
+    background-color: #d0747451;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999999;
+    
+    
 
-export default function CartItem({ item }: CartItemProp): JSX.Element {
-    const [quantity, setQuantity] = useState<number>(1);
 
-    return (
-        <CartItemDiv key={item.id}>
-            <ImageDiv>
-                <img src={item.image} />
-            </ImageDiv>
-            <Details>
-                <h2>{item.title}</h2>
-                <Price>
-                    <p>${quantity * item.price}</p>
-                    <Quantity>
-                        <button onClick={() => setQuantity(q => q > 1 ? q - 1 : q)}>-</button>
-                        <span>{quantity}</span>
-                        <button onClick={() => setQuantity(q => q >= + 1 ? q + 1 : q)}>+</button>
-                    </Quantity>
-                </Price>
-            </Details>
-        </CartItemDiv>
-    )
-}
+`

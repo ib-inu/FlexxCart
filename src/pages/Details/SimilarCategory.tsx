@@ -1,11 +1,75 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { Product } from "../../api/useRandomProducts";
 import { useParams } from "react-router-dom";
-import { Button } from "../../components/Button";
-import { BiCart } from "react-icons/bi";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import DetailsBtn from "../../components/ui/DetailsBtn";
+import AddToCartBtn from "../../components/ui/AddToCartBtn";
 
+
+
+
+
+interface Props {
+  item: Product[];
+}
+
+export default function SimilarCategory({ item }: Props): JSX.Element {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const { id } = useParams();
+
+
+  const scrollRight = () => {
+    setCurrentSlide((prevSlide) => (prevSlide === item.length - 2 ? 0 : prevSlide + 1))
+
+  };
+
+  const scrollLeft = () => {
+    setCurrentSlide((prevSlide) => (prevSlide === 0 ? item.length - 2 : prevSlide - 1))
+  };
+
+  return (
+
+    <Container>
+      <SimilarProductWrapper>
+        <ScrollButton onClick={scrollLeft}><BsArrowLeft /></ScrollButton>
+
+        <SimilarProducts ref={scrollRef} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+          {
+            item?.map((i) => (
+              i.id !== Number(id) ?
+                <ProductCard key={i.id}>
+                  <Image>
+                    <img src={i.image} alt={i.title} />
+                  </Image>
+                  <h2>{i.title}</h2>
+                  <h3>${i.price}</h3>
+                  <DetailsBtn id={i.id} />
+                  <AddToCartBtn item={{
+                    productId: i.id,
+                    quantity: 1,
+                    price: i.price
+                  }} />
+                </ProductCard>
+                : ""
+            ))
+          }
+
+        </SimilarProducts>
+
+        <ScrollButton onClick={scrollRight}><BsArrowRight /></ScrollButton>
+      </SimilarProductWrapper>
+    </Container>
+  );
+}
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+`
 const SimilarProductWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -14,25 +78,11 @@ const SimilarProductWrapper = styled.div`
   overflow: hidden;
   margin-bottom: 10em;
   position: relative;
-  /* background-color: #f4f4f4; */
 `;
 
-const Image = styled.div`
-height: 25em;
-overflow: hidden;
-width: 100%;
-
-img{
-  object-fit: cover;
-  width: 80%;
-  height: 80% ;
-  border-radius: 22px;
-}
-
-`
 
 const ScrollButton = styled.button`
-  background-color: #717171ce;
+  background-color: #717171ec;
   border: none;
   border-radius: 50%;
   width: 2em;
@@ -53,13 +103,15 @@ const ScrollButton = styled.button`
   }
 `;
 
+
 const SimilarProducts = styled.div`
   display: flex;
-  overflow-x: scroll;
+  /* overflow: hidden; */
   scroll-behavior: smooth;
   width: 100%;
   padding: 0 2em;
   scroll-snap-type: x mandatory; 
+  transition:  transform .5s ease;
 
 
   &::-webkit-scrollbar {
@@ -68,7 +120,7 @@ const SimilarProducts = styled.div`
 `;
 
 const ProductCard = styled.div`
-  flex: 0 0 auto;
+  flex: 1 0 auto;
   width: 300px;
   scroll-snap-align: start;
   text-align: center;
@@ -76,55 +128,16 @@ const ProductCard = styled.div`
   border-radius: 8px;
 `;
 
-interface Props {
-  item: Product[];
+const Image = styled.div`
+height: 25em;
+overflow: hidden;
+width: 100%;
+
+img{
+  object-fit: cover;
+  width: 80%;
+  height: 80% ;
+  border-radius: 22px;
 }
 
-export default function SimilarCategory({ item }: Props): JSX.Element {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const { id } = useParams();
-
-
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
-    }
-  };
-
-  return (
-
-    <>
-      <SimilarProductWrapper>
-        <ScrollButton onClick={scrollLeft}><BsArrowLeft /></ScrollButton>
-
-        <SimilarProducts ref={scrollRef}>
-          {
-            item?.map((i) => (
-              i.id !== Number(id) ?
-                <ProductCard key={i.id}>
-                  <Image>
-                    <img src={i.image} alt={i.title} />
-                  </Image>
-                  <h2>{i.title}</h2>
-                  <h3>${i.price}</h3>
-                  <Button $variant="secondary">Details</Button>
-                  <Button><BiCart /></Button>
-                </ProductCard>
-                : ""
-            ))
-          }
-
-        </SimilarProducts>
-
-        <ScrollButton onClick={scrollRight}><BsArrowRight /></ScrollButton>
-      </SimilarProductWrapper>
-    </>
-  );
-}
-
+`

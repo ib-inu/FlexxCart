@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Product } from "../../api/useRandomProducts";
 import { BiCart } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
+import DetailsBtn from "../../components/ui/DetailsBtn";
+import AddToCartBtn from "../../components/ui/AddToCartBtn";
 
 
 const Card = styled.div`
@@ -57,12 +58,13 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
 
     const titleTrimmed = title.length > 15 ? title.slice(0, 15) + "..." : title;
 
-    const navigate = useNavigate()
 
-    //TODO:- REDUX DETAILS SLICE
-    function getDetails(id: number) {
-        navigate(`/details/${id}`)
+    const itemData = {
+        productId: id,
+        price: price,
+        quantity: 1,
     }
+
 
     return (
         <Card>
@@ -72,9 +74,9 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
             <h2>{titleTrimmed}</h2>
             <p>${price}</p>
             <div>
-                <Button $variant="secondary" onClick={() => getDetails(id)
-                }>Details</Button>
-                <Button><BiCart /></Button>
+                <DetailsBtn id={id} />
+                {/* <Button><BiCart /></Button> */}
+                <AddToCartBtn item={itemData} />
             </div>
         </Card>
     );
