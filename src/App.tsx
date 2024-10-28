@@ -8,6 +8,7 @@ import Authentication from "./Authentication/Authentication";
 import Login from "./Authentication/Login";
 import { Provider, useSelector } from "react-redux";
 import { Rootstate, store } from "./store";
+import ErrorMsg from "./components/ui/ErrorMsg";
 
 
 const queryClient = new QueryClient({
@@ -26,6 +27,7 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
 
 const router = createBrowserRouter([
   {
+    errorElement: <ErrorMsg />,
     path: "/",
     element: <Authentication />,
     children: [
@@ -46,15 +48,16 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <ProtectedRoute element={<Cart />} />,
-
   },
   {
-    path: "details/:id",
-    element: <ProtectedRoute element={<Details />} />
-
+    path: "/details/:id",
+    element: <ProtectedRoute element={<Details />} />,
+  },
+  {
+    path: "*",
+    element: <ErrorMsg />,
   },
 ]);
-
 
 
 

@@ -13,8 +13,8 @@ export const Button = styled.button<{ $variant?: "primary" | "secondary"; $fontS
   margin: 1em;
 
   ${(props) =>
-        props.$variant === "secondary" &&
-        css`
+    props.$variant === "secondary" &&
+    css`
       background-color: #6c757d;
       &:hover {
         background-color: #9ca8b2;
@@ -22,8 +22,8 @@ export const Button = styled.button<{ $variant?: "primary" | "secondary"; $fontS
     `}
 
   ${(props) =>
-        props.$variant === "primary" &&
-        css`
+    props.$variant === "primary" &&
+    css`
       background-color: #007bff;
       &:hover {
         background-color: #5caff4;
@@ -31,13 +31,13 @@ export const Button = styled.button<{ $variant?: "primary" | "secondary"; $fontS
     `}
 
   ${(props) =>
-        props.$fontSize &&
-        css`
+    props.$fontSize &&
+    css`
       font-size: ${props.$fontSize}em;
     `}
 `;
 
 Button.defaultProps = {
-    $variant: "primary",
-    $fontSize: 1,
+  $variant: "primary",
+  $fontSize: 1,
 };
