@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { Product } from "../../api/useRandomProducts";
+import { Product } from "../../api/useProducts";
 import { useParams } from "react-router-dom";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import DetailsBtn from "../../components/ui/DetailsBtn";

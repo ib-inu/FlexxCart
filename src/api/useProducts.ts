@@ -14,12 +14,17 @@ export interface Product {
     };
 }
 
-const fetchRandomProducts = async (): Promise<Product[]> => {
+const fetchRandomProducts = async (product: string): Promise<Product[]> => {
     try {
-        const { data, status } = await axios.get('https://fakestoreapi.com/products');
+        let link;
+        if (product === "random") {
+            link = "https://fakestoreapi.com/products"
+        }
+        else link = `https://fakestoreapi.com/products/category/${product}`
+
+        const { data, status } = await axios.get(link);
 
         if (status !== 200) throw new Error(`HTTP error! Status: ${status}`);
-
 
         if (!data.length) throw new Error("No products available.");
 
@@ -27,7 +32,6 @@ const fetchRandomProducts = async (): Promise<Product[]> => {
         return data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            // Handle network or response errors
             if (error.response) {
                 // The server responded with a status code out of the 2xx range
                 const axiosErrorStatus = error.response.status;
@@ -52,12 +56,14 @@ const fetchRandomProducts = async (): Promise<Product[]> => {
     }
 };
 
-export function useRandomProducts() {
+export function useProducts(product: string) {
     return useQuery(
-        ['randomProducts'],
-        fetchRandomProducts,
+        [`products-${product}`], // Use product in the query key as part of a single string
+        () => fetchRandomProducts(product),
         {
             retry: false,
         }
     );
 }
+
+

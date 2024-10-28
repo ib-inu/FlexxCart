@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { Product } from "../../api/useRandomProducts";
-import { BiCart } from "react-icons/bi";
-import { Button } from "../../components/Button";
+import { Product } from "../../api/useProducts";
 import DetailsBtn from "../../components/ui/DetailsBtn";
 import AddToCartBtn from "../../components/ui/AddToCartBtn";
 
@@ -75,7 +73,6 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
             <p>${price}</p>
             <div>
                 <DetailsBtn id={id} />
-                {/* <Button><BiCart /></Button> */}
                 <AddToCartBtn item={itemData} />
             </div>
         </Card>

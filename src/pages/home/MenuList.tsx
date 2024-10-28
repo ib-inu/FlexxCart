@@ -1,6 +1,76 @@
+import React from "react"
+import { BiLogOut } from "react-icons/bi"
 import { BsArrowRight } from "react-icons/bs"
-import { FaRegUser } from "react-icons/fa"
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components"
+import { setCategory } from "../../features/products/productSlice";
+import { Rootstate } from "../../store";
+
+
+
+interface Props {
+    setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setLogoutModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function MenuList({ setIsMenuOpen, setLogoutModal }: Props): JSX.Element {
+    const dispatch = useDispatch();
+    const category = useSelector((state: Rootstate) => state.product.category);
+    const categories = [
+        "Electronics", "Jewelery", "Men's Clothing",
+        "Women's Clothing"
+    ]
+
+    return (
+        <MenuContainer>
+            <Overlay onClick={() => {
+                console.log("clicked");
+
+                setIsMenuOpen(false)
+            }}></Overlay>
+            <Menu>
+                <ul >
+                    <li
+                        style={{ backgroundColor: `${category === "random" ? '#ededed' : ''}` }}
+                        onClick={() => {
+                            dispatch(setCategory('random'))
+                            setIsMenuOpen(false);
+                        }}>
+                        All <p ><BsArrowRight /></p>
+                    </li>
+
+
+
+                    {categories.map((item, i) => {
+                        const product = item.split('').map(char => char.toLowerCase()).join('');
+                        return (
+                            <li style={{ backgroundColor: `${category === product ? '#ededed' : ''}` }}
+                                onClick={() => {
+                                    dispatch(setCategory(product))
+                                    setIsMenuOpen(false);
+                                }
+                                }
+                                key={i} >
+                                {item}
+                                <p ><BsArrowRight /></p>
+                            </li>)
+                    }
+
+                    )}
+                </ul>
+                <p style={{ transform: "translateX(12px)" }}
+                    onClick={() => setLogoutModal(true)}
+                >
+                    <BiLogOut />
+                </p>
+            </Menu>
+
+        </MenuContainer >
+    )
+}
+
+export default MenuList
+
 
 
 
@@ -24,10 +94,10 @@ const Menu = styled.div`
             width: 100%;
             align-items: center;
             cursor: pointer;
-            transition: all 1s ease;
+            transition: all .5s ease;
 
             &:hover{
-                background-color: #dedede;
+                background-color: #f3f3f3;
             }
         }
         
@@ -53,43 +123,9 @@ const Overlay = styled.div`
 
 const MenuContainer = styled.div`
     position: fixed;
-    z-index: 5;
+    z-index: 10;
     width: 100%;
     top: 5%;
 height: 100%;
 `
-
-
-
-function MenuList(): JSX.Element {
-
-    const categories = [
-        "Electronic", "Jewelery", "Men's Clothing",
-        "Women's Clothing"
-
-    ]
-
-    return (
-        <MenuContainer>
-            <Overlay></Overlay>
-            <Menu>
-                <ul>
-                    {categories.map((item, i) => <li key={i} >
-                        {item}
-                        <p ><BsArrowRight /></p>
-                    </li>
-
-                    )}
-                </ul>
-                <p>
-                    <FaRegUser />
-                </p>
-            </Menu>
-
-        </MenuContainer >
-    )
-}
-
-export default MenuList
-
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Product } from "./useRandomProducts";
+import { Product } from "./useProducts";
 import { useQuery } from "react-query";
 
 

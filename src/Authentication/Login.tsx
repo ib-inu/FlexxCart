@@ -48,6 +48,7 @@ const LoginContainer = styled.div`
             cursor: pointer;
         }
     }
+
 `
 export default function Login() {
     const dispatch: AppDispatch = useDispatch();

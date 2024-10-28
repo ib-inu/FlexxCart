@@ -7,6 +7,7 @@ import SimilarCategory from "./SimilarCategory";
 import { useCategory } from "../../api/useCategory";
 import DetailsSkelton from "../../components/ui/DetailsSkelton";
 import AddToCartBtn from "../../components/ui/AddToCartBtn";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -34,6 +35,7 @@ export default function Details(): JSX.Element {
 
             {!isLoading && !isError &&
                 <Container>
+                    <Toaster />
                     <ProductDetails>
                         <Image>
                             <img src={data?.image} alt={data?.title} />

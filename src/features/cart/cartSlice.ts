@@ -9,11 +9,15 @@ export type CartItem = {
 type CartState = {
     items: CartItem[];
     totalPrice: number;
+    isRemoveModalOpen: boolean;
+    selectedItem: number | null;
 };
 
 const initialState: CartState = {
     items: [],
     totalPrice: 0,
+    isRemoveModalOpen: false,
+    selectedItem: null,
 };
 
 const cartSlice = createSlice({
@@ -60,8 +64,11 @@ const cartSlice = createSlice({
         calculateTotalPrice: (state) => {
             const price = state.items.map(item => Math.round(item.price * item.quantity))
             state.totalPrice = price.reduce((acc, cur) => acc + cur);
-        }
-
+        },
+        setRemoveModal: (state, action: PayloadAction<{ modal: boolean, selectedItemId: number }>) => {
+            state.isRemoveModalOpen = action.payload.modal;
+            state.selectedItem = action.payload.selectedItemId;
+        },
 
 
     },
@@ -70,5 +77,5 @@ const cartSlice = createSlice({
     // },
 });
 
-export const { addToCart, incQuantity, decQuantity, clearCart, addTotalPrice, addItemPrice, removeFromCart, calculateTotalPrice } = cartSlice.actions;
+export const { addToCart, incQuantity, decQuantity, clearCart, addTotalPrice, addItemPrice, removeFromCart, calculateTotalPrice, setRemoveModal } = cartSlice.actions;
 export default cartSlice.reducer;

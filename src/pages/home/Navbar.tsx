@@ -1,9 +1,46 @@
 import React from "react";
-import { BiMenu } from "react-icons/bi";
+import { BiLogOut, BiMenu } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
-import { FaRegUser } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+
+
+interface NavbarProps {
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setLogoutModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+export default function Navbar({ setIsMenuOpen, setLogoutModal }: NavbarProps): JSX.Element {
+  const navigate = useNavigate();
+
+
+
+
+  return (
+    <Nav>
+      <Menu onClick={() => setIsMenuOpen(m => !m)}>
+        <BiMenu />
+      </Menu>
+      <h2 style={{ userSelect: "none" }} >FlexxCart</h2>
+      <Ul>
+        <li onClick={() => setLogoutModal(true)}>
+          <BiLogOut />
+        </li>
+        <li onClick={() => navigate('/cart')}>
+          <FaShoppingCart />
+        </li>
+      </Ul>
+      <Cart onClick={() => navigate('/cart')}><FaShoppingCart /></Cart>
+    </Nav>
+  )
+}
+
+
+
+
+
 
 const Nav = styled.nav`
   display: flex;
@@ -98,34 +135,3 @@ const Cart = styled.div`
         display: block;
     }
 `
-
-interface NavbarProps {
-  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
-
-
-export default function Navbar({ setIsMenuOpen }: NavbarProps): JSX.Element {
-  const navigate = useNavigate();
-
-
-
-  return (
-    <Nav>
-      <Menu onClick={() => setIsMenuOpen(m => !m)}>
-        <BiMenu />
-      </Menu>
-      <h2 style={{ userSelect: "none" }} >FlexxCart</h2>
-      <Ul>
-        <li>
-          <FaRegUser />
-        </li>
-        <li onClick={() => navigate('/cart')}>
-          <FaShoppingCart />
-        </li>
-      </Ul>
-      <Cart onClick={() => navigate('/cart')}><FaShoppingCart /></Cart>
-    </Nav>
-  )
-}

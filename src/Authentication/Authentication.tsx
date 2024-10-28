@@ -11,6 +11,20 @@ align-items: center;
 padding: 3em;
 gap: 2em;
 width: 100%;
+animation: comingUp 1s .2s ease;
+transition: all 2s;
+
+@keyframes comingUp {
+        0%{
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+            
+        }
+    }
 `
 const AuthContainer = styled.div`
 background-color: #ffffff;

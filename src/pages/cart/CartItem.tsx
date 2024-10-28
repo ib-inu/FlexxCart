@@ -4,12 +4,13 @@ import { ProductItems } from "./Cart"
 import ProductSkelton from "../../components/ui/ProductSkelton"
 import { AppDispatch } from "../../store"
 import { useDispatch } from "react-redux"
-import { addItemPrice, calculateTotalPrice, decQuantity, incQuantity, removeFromCart } from "../../features/cart/cartSlice"
+import { addItemPrice, calculateTotalPrice, decQuantity, incQuantity, setRemoveModal } from "../../features/cart/cartSlice"
 import { useEffect } from "react"
 import { MdDelete } from "react-icons/md"
 
 
 export default function CartItem({ item }: { item: ProductItems }): JSX.Element {
+
 
 
 
@@ -42,9 +43,8 @@ export default function CartItem({ item }: { item: ProductItems }): JSX.Element 
         dispatch(calculateTotalPrice());
     }
     const handleRemove = (id: number) => {
-        dispatch(removeFromCart(id))
+        dispatch(setRemoveModal({ modal: true, selectedItemId: id }))
     }
-
 
 
 
@@ -178,8 +178,4 @@ const RemoveBtn = styled.button`
     width: 20px;
     height: 20px;
     border: 1px solid #999999;
-    
-    
-
-
 `

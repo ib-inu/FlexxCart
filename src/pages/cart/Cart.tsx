@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import BackNav from "../../components/BackNav";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Rootstate } from "../../store";
+import RemoveModal from "../../components/ui/RemoveModal";
+import { removeFromCart, setRemoveModal } from "../../features/cart/cartSlice";
+import toast, { Toaster } from "react-hot-toast";
+import MockPaymentGateway from "./Paymentgateway";
+import { useState } from "react";
 
 
 export interface ProductItems {
@@ -13,31 +18,48 @@ export interface ProductItems {
 
 export default function Cart(): JSX.Element {
 
-    const state = useSelector((state: Rootstate) => state.cart.items);
+    const { items, isRemoveModalOpen, selectedItem } = useSelector((state: Rootstate) => state.cart);
+    const dipatch = useDispatch();
     const totalPrice = useSelector((state: Rootstate) => state.cart.totalPrice);
-    const totalItems = state.length;
+    const [ispaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
 
 
 
+    function handleDelete() {
+        dipatch(removeFromCart((selectedItem || 0)));
+        toast.success('Successfully removed!')
+        dipatch(setRemoveModal({ modal: false, selectedItemId: 0 }))
+
+    }
+    const totalItems = items.length;
 
     return (
         <div>
+            {ispaymentModalOpen && <MockPaymentGateway setIsPaymentModalOpen={setIsPaymentModalOpen} />}
+
+            {isRemoveModalOpen && <RemoveModal text={"confirm to remove"} onConfirm={handleDelete} />}
             <BackNav name="Cart" />
+            <Toaster />
+
 
             <CartItems>
-                {!state.length && <p>Nothing here</p>}
-                {state.map(item => <CartItem
-                    key={item.productId} item={item} />
-                )}
+                {!items.length ? <p>Nothing here</p>
+                    :
+                    items.map(item => <CartItem
+                        key={item.productId} item={item} />
+                    )}
             </CartItems>
 
-            <Buy>
-                <div>
-                    <p>Total Items: <span>{totalItems}</span></p>
-                    <p>Total Amount: <span>${totalPrice}</span></p>
-                </div>
-                <button>Continue</button>
-            </Buy>
+
+            {(totalItems > 0) &&
+                <Buy>
+                    <div>
+                        <p>Total Items: <span>{totalItems}</span></p>
+                        <p>Total Amount: <span>${totalPrice}</span></p>
+                    </div>
+                    <button onClick={() => setIsPaymentModalOpen(true)}>Continue</button>
+                </Buy>
+            }
 
         </div>
     )
@@ -63,7 +85,7 @@ display: flex;
 border-top: 1px solid #32203231;
 bottom: 0;
 width: 100%;
-z-index: 1001;
+z-index: 1000;
 height: 5em;
 gap: 1em;
 background-color: #fff;

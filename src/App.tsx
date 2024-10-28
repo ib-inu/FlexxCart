@@ -18,10 +18,10 @@ const queryClient = new QueryClient({
   }
 })
 
-// const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
-//   const user = useSelector((state: Rootstate) => state.auth.user);
-//   return user ? element : <Navigate to="/login" />;
-// };
+const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
+  const user = useSelector((state: Rootstate) => state.auth.user);
+  return user ? element : <Navigate to="/login" />;
+};
 
 
 const router = createBrowserRouter([
@@ -41,19 +41,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    // element: <ProtectedRoute element={<Home />} />, // Protect the Home route
-    element: <Home />
+    element: <ProtectedRoute element={<Home />} />,
   },
   {
     path: "/cart",
-    // element: <ProtectedRoute element={<Cart />} />, // Protect the Cart route
-    element: <Cart />
+    element: <ProtectedRoute element={<Cart />} />,
 
   },
   {
     path: "details/:id",
-    // element: <ProtectedRoute element={<Details />} />, // Protect the Details route
-    element: <Details />
+    element: <ProtectedRoute element={<Details />} />
 
   },
 ]);
