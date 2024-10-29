@@ -24,6 +24,7 @@ input{
         font-style: italic;
         color: #aeaeae;
     }
+
 }
 
 `
