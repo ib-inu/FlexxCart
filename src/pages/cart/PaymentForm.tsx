@@ -72,14 +72,17 @@ export default PaymentForm;
 const Form = styled.form`
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 1.5em;
     div{
         display: flex;
-        gap: 1em;
+        width: 100%;
+        justify-content: space-between;
 
         input{
             margin-left: auto;
             padding: .5em;
+            height: 40px;
             border: 1px solid #d9d9d9;
             border-radius: 8px;
             &:focus{
@@ -103,10 +106,12 @@ const Form = styled.form`
     }
 
     button{
+    align-self: center;
         border: 1px solid #d9d9d9;
         background-color: #646eff;
         color: white;
         height: 2.5em;
+        width: 8em;
         border-radius: 12px;
         transition: all .5s ease;
         cursor: pointer;
