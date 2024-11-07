@@ -78,20 +78,21 @@ export default PaymentForm;
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    align-items: start;
-
+    align-items: center;
     gap: 1.5em;
     width: 100%;
     div{
         display: flex;
-        width: 100%;
+        width: 70%;
+        align-items: center;
         justify-content: space-between;
-
+        max-width: 400px;
+        overflow: hidden;
         
 
         input{
-            /* margin-left: auto; */
             padding: .5em;
+            max-width: 200px;
             height: 40px;
             border: 1px solid #d9d9d9;
             border-radius: 8px;
@@ -101,6 +102,9 @@ const Form = styled.form`
             }
         }
 
+        @media (max-width:470px) {
+            width: 100%;
+        }
         @media (max-width:370px) {
             label{
                 font-size: clamp(12px , 3vw , 18px);
@@ -108,15 +112,13 @@ const Form = styled.form`
         }
         @media (max-width:330px) {
             input{
-                width: 50%;
                 height: 35px;
-
+                width: 40%;
             }
         }
     }
 
     button{
-    align-self: center;
         border: 1px solid #d9d9d9;
         background-color: #646eff;
         color: white;
