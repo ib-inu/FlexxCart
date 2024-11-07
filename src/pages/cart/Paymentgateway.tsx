@@ -54,7 +54,7 @@ export default MockPaymentGateway;
 
 
 const PaymentDiv = styled.div`
-    width:80%;
+    width:90%;
     max-width: 50em;
     border: 2px solid #dddddd;
     background-color: #f1f1f1;

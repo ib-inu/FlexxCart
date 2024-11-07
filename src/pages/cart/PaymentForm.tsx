@@ -41,6 +41,7 @@ function PaymentForm({ onPaymentSuccess, onPaymentFailure }: PaymentFormProps) {
             </div>
             <div>
                 <label>Expiry Date:</label>
+
                 <input
                     type="text"
                     value={expiry}
@@ -48,9 +49,11 @@ function PaymentForm({ onPaymentSuccess, onPaymentFailure }: PaymentFormProps) {
                     placeholder="MM/YY"
                     required
                 />
+
             </div>
             <div>
                 <label>CVV:</label>
+
 
                 <input
                     type="text"
@@ -69,18 +72,25 @@ function PaymentForm({ onPaymentSuccess, onPaymentFailure }: PaymentFormProps) {
 
 export default PaymentForm;
 
+
+
+
 const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: start;
+
     gap: 1.5em;
+    width: 100%;
     div{
         display: flex;
         width: 100%;
         justify-content: space-between;
 
+        
+
         input{
-            margin-left: auto;
+            /* margin-left: auto; */
             padding: .5em;
             height: 40px;
             border: 1px solid #d9d9d9;
