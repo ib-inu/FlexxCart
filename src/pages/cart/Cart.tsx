@@ -99,6 +99,9 @@ div{
     margin-left: 2em;
     gap: 1em;
     
+    p{
+        font-size: clamp(12px , 2vw , 28px);
+    }
 }
 button{
  border-radius:18px ;

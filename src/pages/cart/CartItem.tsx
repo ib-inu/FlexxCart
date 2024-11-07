@@ -117,9 +117,11 @@ const ImageDiv = styled.div`
          
          img{
              border-radius: 50%;
+             border: 2px solid #d2d2d267;
              width: 5rem;
              height: 5rem;
              object-fit: cover;
+             mix-blend-mode: darken;
          }
 
          @media (max-width:500px) {
@@ -138,6 +140,10 @@ const Details = styled.div`
     border-radius: 1em;
     text-align: left;
     padding: 2em;
+
+    h2{
+        font-size: clamp(12px , 2vw , 28px);
+    }
 `
 
 const Price = styled.div`

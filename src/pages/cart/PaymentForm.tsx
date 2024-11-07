@@ -76,6 +76,7 @@ const Form = styled.form`
     div{
         display: flex;
         gap: 1em;
+
         input{
             margin-left: auto;
             padding: .5em;
@@ -84,6 +85,19 @@ const Form = styled.form`
             &:focus{
                 background-color: #bac2d538;
                 outline: none;
+            }
+        }
+
+        @media (max-width:370px) {
+            label{
+                font-size: clamp(12px , 3vw , 18px);
+            }
+        }
+        @media (max-width:330px) {
+            input{
+                width: 50%;
+                height: 35px;
+
             }
         }
     }

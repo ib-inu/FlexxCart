@@ -45,12 +45,14 @@ export default function SimilarCategory({ item }: Props): JSX.Element {
                   </Image>
                   <h2>{i.title}</h2>
                   <h3>${i.price}</h3>
-                  <DetailsBtn id={i.id} />
-                  <AddToCartBtn item={{
-                    productId: i.id,
-                    quantity: 1,
-                    price: i.price
-                  }} />
+                  <Buttons>
+                    <DetailsBtn id={i.id} />
+                    <AddToCartBtn item={{
+                      productId: i.id,
+                      quantity: 1,
+                      price: i.price
+                    }} />
+                  </Buttons>
                 </ProductCard>
                 : ""
             ))
@@ -126,18 +128,28 @@ const ProductCard = styled.div`
   text-align: center;
   padding: 1em;
   border-radius: 8px;
+background-color: inherit;
 `;
 
 const Image = styled.div`
 height: 25em;
 overflow: hidden;
 width: 100%;
+background-color: #f3f3f3;
 
 img{
   object-fit: cover;
   width: 80%;
   height: 80% ;
   border-radius: 22px;
+mix-blend-mode: darken;
 }
 
+`
+
+const Buttons = styled.div`
+display: flex;
+gap: 1em;
+justify-content: center;
+margin-top: 1em;
 `

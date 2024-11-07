@@ -83,7 +83,7 @@ const Menu = styled.div`
     padding: 1em 0;
     gap: 2em;
     z-index: 1001;
-    animation: menuAnimation ease .6s;
+    animation: menuAnimation linear .2s;
     ul{
         border-bottom: 1px solid gray;
         padding: 1em;

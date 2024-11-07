@@ -72,7 +72,7 @@ const Menu = styled.div`
     padding: .3em;
     font-size: 1.3em;
    cursor: pointer;
-   transform: translatey(.3em);
+   transform: translateY(.1em);
 
 
 

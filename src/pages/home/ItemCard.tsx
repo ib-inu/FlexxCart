@@ -49,6 +49,11 @@ mix-blend-mode: darken;
 }
 `
 
+const Buttons = styled.div`
+display: flex;
+gap: 1.5em;
+`
+
 
 
 interface ItemProps {
@@ -74,10 +79,10 @@ export default function ItemCard({ item }: ItemProps): JSX.Element {
             </ImgDiv>
             <h2>{titleTrimmed}</h2>
             <p>${price}</p>
-            <div>
+            <Buttons>
                 <DetailsBtn id={id} />
                 <AddToCartBtn item={itemData} />
-            </div>
+            </Buttons>
         </Card>
     );
 }

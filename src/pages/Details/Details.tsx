@@ -87,10 +87,13 @@ const ProductDetails = styled.div`
 const Image = styled.div`
 width: 50%;
 height: 50%;
+background-color: #f3f3f3;
+max-width: 300px;
 img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    mix-blend-mode: darken;
 }
 `
 const Info = styled.div`
