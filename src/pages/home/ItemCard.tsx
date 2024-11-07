@@ -32,17 +32,20 @@ overflow: hidden;
 width: 80%;
 height: 80%;
 transition: all 1s ease;
+mix-blend-mode: darken;
 
 img{
     object-fit: contain;
 width:100%;
 height: 100%;
 user-select: none;
+mix-blend-mode: darken;
 
 }
 &:hover{
     transform: scale(1.1) rotate(-2deg);
-    
+mix-blend-mode: darken;
+
 }
 `
 

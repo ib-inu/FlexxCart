@@ -14,6 +14,12 @@ width: 100%;
 animation: comingUp 1s .2s ease;
 transition: all 2s;
 
+@media (max-width:400px) {
+    padding: 3em 1em;
+
+}
+
+
 @keyframes comingUp {
         0%{
             transform: translateY(30px);
@@ -36,6 +42,17 @@ flex-direction: column;
 border-radius: 18px;
 max-width: 40rem;
 min-height: 25rem;
+
+@media (max-width:550px) {
+        width: 100%;
+    }
+
+    @media (max-width:320px) {
+        justify-content:center;
+min-height: 20rem;
+
+    }
+
 
 `
 

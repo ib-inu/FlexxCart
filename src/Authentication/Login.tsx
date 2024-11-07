@@ -49,6 +49,10 @@ const LoginContainer = styled.div`
             cursor: pointer;
         }
     }
+    @media (max-width:320px) {
+        padding: 0;
+    }
+
 
 `
 export default function Login() {
@@ -64,7 +68,8 @@ export default function Login() {
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const valueWithoutSpaces = e.target.value.replace(/\s+/g, ''); // Remove all spaces
+        setFormData({ ...formData, [e.target.name]: valueWithoutSpaces });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -87,12 +92,19 @@ export default function Login() {
             <LoginForm onSubmit={handleSubmit}>
                 <input name="username" onChange={handleChange} required placeholder="@username" type="text" />
                 <input type="password" name="password" onChange={handleChange} value={formData.password} required placeholder="password" />
-                <div>
+                <Buttons>
                     <Button type="reset" $variant="secondary">Clear</Button>
                     <Button type="submit">{loading ? 'Login...' : 'Login '}</Button>
-                </div>
+                </Buttons>
             </LoginForm>
             {error && <p style={{ color: 'red' }}>{error}</p>}
         </LoginContainer>
     )
 }
+
+
+
+const Buttons = styled.div`
+    display: flex;
+    gap: 1em;
+`

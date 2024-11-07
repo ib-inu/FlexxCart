@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Button = styled.button<{ $variant?: "primary" | "secondary"; $fontSize?: number }>`
   padding: 0.5em;
-  min-width: 5em;
+  min-width: 4em;
   min-height: 2em;
   border-radius: 4px;
   border: none;
@@ -10,7 +10,6 @@ export const Button = styled.button<{ $variant?: "primary" | "secondary"; $fontS
   cursor: pointer;
   transition: all 0.6s ease;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  margin: 1em;
 
   ${(props) =>
     props.$variant === "secondary" &&
