@@ -100,8 +100,9 @@ div{
     gap: 1em;
     
     p{
-        font-size: clamp(12px , 2vw , 28px);
+        font-size: clamp(12px , 2vw , 20px);
     }
+
 }
 button{
  border-radius:18px ;
