@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# FlexxCart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FlexxCart is a modern e-commerce website designed by styled components to provide a seamless shopping experience with the use of redux. The app allows users to browse products by category, add them to a cart, and perform basic mock authentication and authorization. It integrates React and TypeScript with Redux for state management and uses React Query for efficient data fetching and caching.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Browse Products**: Fetch product data from the FakeStore API.
+- **Shopping Cart**: Add, remove, and manage items in the cart.
+- **Mock Authentication**: Simulate login and authorization for user-based interactions.
+- **Mock PaymentGateway**: Basic Payment mock UI with the 50% chance to success or fail.
+- **Persistent Notifications**: Provide feedback with React Hot Toaster.
+- **Dynamic Routing**: Navigate seamlessly with React Router.
+- **Customizable UI**: Styled with Material UI and Styled Components.
 
-## Expanding the ESLint configuration
+## Limitations
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Due to the limitations of the FakeStore API:
+- **Dynamic Cart Operations**: The cart functionality is static and does not persist changes to the backend.
+- **User Data by Login**: User-specific data cannot be retrieved using JSON keys or tokens.
+- **Search Functionality**: There is no built-in support for search features.
 
-- Configure the top-level `parserOptions` property like this:
+These limitations make FlexxCart an ideal project for learning and practicing frontend development, but not fully production-ready for dynamic user interactions.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Technologies Used
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **React**: For building the user interface.
+- **Redux**: For managing global state.
+- **TypeScript**: For type safety and improved developer experience.
+- **React Query**: For handling server-state and API interactions.
+- **React Router**: For navigation and routing.
+- **Axios**: For making HTTP requests.
+- **Material UI**: For responsive and pre-styled components.
+- **Styled Components**: For modular and reusable CSS-in-JS styling.
+- **React Hot Toaster**: For showing toast notifications.
