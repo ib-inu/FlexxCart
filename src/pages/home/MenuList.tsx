@@ -59,9 +59,12 @@ function MenuList({ setIsMenuOpen, setLogoutModal }: Props): JSX.Element {
                     )}
                 </ul>
                 <p style={{ transform: "translateX(12px)" }}
-                    onClick={() => setLogoutModal(true)}
                 >
-                    <BiLogOut />
+                    <span>
+                        <BiLogOut
+                            onClick={() => setLogoutModal(true)}
+                        />
+                    </span>
                 </p>
             </Menu>
 
@@ -103,9 +106,11 @@ const Menu = styled.div`
         
     }
     p{
-        cursor: pointer;
             padding: 10px;
             font-size: 1.2em;
+            span{
+        cursor: pointer;
+            }
         }
     `
 
@@ -113,11 +118,9 @@ const Menu = styled.div`
 const Overlay = styled.div`
     width: 100%;
     position: fixed;
-    -webkit-backdrop-filter:blur(2px);
-    backdrop-filter: blur(2px);
     height: 100%;
     z-index: -1;
-   background-color: #6d6d6d3c;
+   background-color: #6d6d6d82;
    
 `
 
