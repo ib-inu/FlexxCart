@@ -63,8 +63,8 @@ export default function Login() {
 
 
     const [formData, setFormData] = useState({
-        username: '',
-        password: '',
+        username: 'johnd',
+        password: 'm38rmF$',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +90,7 @@ export default function Login() {
         <LoginContainer>
             <h2>Login</h2>
             <LoginForm onSubmit={handleSubmit}>
-                <input name="username" onChange={handleChange} required placeholder="@username" type="text" />
+                <input name="username" value={formData.username} onChange={handleChange} required placeholder="@username" type="text" />
                 <input type="password" name="password" onChange={handleChange} value={formData.password} required placeholder="password" />
                 <Buttons>
                     <Button type="reset" $variant="secondary">Clear</Button>
